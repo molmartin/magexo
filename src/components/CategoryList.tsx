@@ -1,6 +1,7 @@
-import { useQuery, gql } from '@apollo/client'
+import type { FC } from 'react'
+import { Link } from 'react-router-dom'
+import { gql, useQuery } from '@apollo/client'
 
-// GraphQL dotaz pro kategorie
 const GET_CATEGORIES = gql`
   query GetCategories {
     collections(first: 10) {
@@ -13,7 +14,7 @@ const GET_CATEGORIES = gql`
     }
   }
 `
-// Typy pro odpověď z GraphQL API
+
 type Category = {
   id: string
   title: string
@@ -26,7 +27,8 @@ type GetCategoriesData = {
     }[]
   }
 }
-const CategoryList = () => {
+
+const CategoryList: FC = () => {
   const { loading, error, data } = useQuery<GetCategoriesData>(GET_CATEGORIES)
 
   if (loading) return <div>Loading...</div>
@@ -36,11 +38,15 @@ const CategoryList = () => {
     <div>
       <h3>Categories</h3>
       <ul>
-        {data?.collections.edges.map(({ node }) => (
-          <li key={node.id}>
-            {node.title} - {node.id}
-          </li>
-        ))}
+        {data?.collections.edges.map((edge) => {
+          const { id, title } = edge.node
+          const shortId = id.split('/').pop()
+          return (
+            <li key={id}>
+              <Link to={`/category/${shortId}`}>{title}</Link>
+            </li>
+          )
+        })}
       </ul>
     </div>
   )

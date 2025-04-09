@@ -1,39 +1,17 @@
-import { gql, useQuery } from '@apollo/client';
-import CategoryList from './CategoryList';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import CategoryList from './components/CategoryList'
+import CategoryPage from './components/CategoryPage'
 
 const App = () => {
-  const GET_SCHEMA = gql`
-    {
-      __schema {
-        types {
-          name
-          fields {
-            name
-            type {
-              name
-            }
-          }
-        }
-      }
-    }
-  `;
-
-  const { data } = useQuery(GET_SCHEMA);
-
-  console.log(data);
-
-  /*  console.log(
-    data.types?.find((type) => type.name.toLowerCase().includes('categ')),
-  ); */
-
   return (
-    <div>
-      <h1>Product Catalog</h1>
+    <Router>
+      <Routes>
+        <Route path="/" element={<CategoryList />} /> {/* Seznam kategorií */}
+        <Route path="/category/:categoryId" element={<CategoryPage />} />{' '}
+        {/* Stránka kategorie */}
+      </Routes>
+    </Router>
+  )
+}
 
-      {/* Zobrazíme seznam kategorií */}
-      <CategoryList />
-    </div>
-  );
-};
-
-export default App;
+export default App
