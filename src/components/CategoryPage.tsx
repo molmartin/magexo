@@ -1,6 +1,6 @@
 import { useMemo, type FC } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import useProductQuery from '../composables/useProductQuery'
+import useProductQuery from '../hooks/useProductQuery'
 import ProductCard from './ProductCard'
 
 const CategoryPage: FC = () => {

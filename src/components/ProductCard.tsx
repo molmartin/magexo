@@ -1,5 +1,5 @@
 import { FC, memo } from 'react'
-import { Product } from '../composables/useProductQuery'
+import { Product } from '../hooks/useProductQuery'
 
 const ProductCard: FC<{ product: Product }> = memo(({ product }) => {
   return (
