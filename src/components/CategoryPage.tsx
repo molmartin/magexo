@@ -1,6 +1,22 @@
 import type { FC } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import useProductQuery from '../composables/useProductQuery'
+import useProductQuery, { type Product } from '../composables/useProductQuery'
+
+const ProductCard: FC<{ product: Product }> = ({ product }) => {
+  return (
+    <li>
+      <h4>{product.title}</h4>
+      <ul>
+        {product.variants.edges.map(({ node: variant }) => (
+          <li key={variant.id}>
+            {variant.title} - {variant.priceV2.amount}{' '}
+            {variant.priceV2.currencyCode}
+          </li>
+        ))}
+      </ul>
+    </li>
+  )
+}
 
 const CategoryPage: FC = () => {
   const { categoryId } = useParams<{ categoryId: string }>()
@@ -19,17 +35,7 @@ const CategoryPage: FC = () => {
       <h3>Products</h3>
       <ul>
         {collection.products.edges.map(({ node: product }) => (
-          <li key={product.id}>
-            <h4>{product.title}</h4>
-            <ul>
-              {product.variants.edges.map(({ node: variant }) => (
-                <li key={variant.id}>
-                  {variant.title} - {variant.priceV2.amount}{' '}
-                  {variant.priceV2.currencyCode}
-                </li>
-              ))}
-            </ul>
-          </li>
+          <ProductCard product={product} />
         ))}
       </ul>
     </div>
