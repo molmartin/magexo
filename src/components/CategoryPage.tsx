@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { gql, useQuery } from '@apollo/client'
 
 const GET_PRODUCTS_BY_CATEGORY = gql`
@@ -84,16 +84,13 @@ const CategoryPage: FC = () => {
 
   return (
     <div>
+      <Link to={`/`}>Back</Link>
       <h2>{collection.title}</h2>
-      <div dangerouslySetInnerHTML={{ __html: collection.descriptionHtml }} />
       <h3>Products</h3>
       <ul>
         {collection.products.edges.map(({ node: product }) => (
           <li key={product.id}>
             <h4>{product.title}</h4>
-            <div
-              dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
-            />
             <ul>
               {product.variants.edges.map(({ node: variant }) => (
                 <li key={variant.id}>
