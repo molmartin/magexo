@@ -1,81 +1,11 @@
 import type { FC } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { gql, useQuery } from '@apollo/client'
-
-const GET_PRODUCTS_BY_CATEGORY = gql`
-  query GetProductsByCategory($categoryId: ID!) {
-    collection(id: $categoryId) {
-      id
-      title
-      descriptionHtml
-      products(first: 10) {
-        edges {
-          node {
-            id
-            title
-            descriptionHtml
-            variants(first: 5) {
-              edges {
-                node {
-                  id
-                  title
-                  priceV2 {
-                    amount
-                    currencyCode
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`
-
-// Typy pro odpověď
-interface PriceV2 {
-  amount: string
-  currencyCode: string
-}
-
-interface Variant {
-  id: string
-  title: string
-  priceV2: PriceV2
-}
-
-interface Product {
-  id: string
-  title: string
-  descriptionHtml: string
-  variants: {
-    edges: { node: Variant }[]
-  }
-}
-
-interface Collection {
-  id: string
-  title: string
-  descriptionHtml: string
-  products: {
-    edges: { node: Product }[]
-  }
-}
-
-interface GetCategoryData {
-  collection: Collection
-}
+import useProductQuery from '../composables/useProductQuery'
 
 const CategoryPage: FC = () => {
   const { categoryId } = useParams<{ categoryId: string }>()
-  console.log(categoryId)
-  const { loading, error, data } = useQuery<GetCategoryData>(
-    GET_PRODUCTS_BY_CATEGORY,
-    {
-      variables: { categoryId: `gid://shopify/Collection/${categoryId}` },
-    },
-  )
+
+  const { data, loading, error } = useProductQuery(categoryId) // TODO: handle error when categoryId is undefined
 
   if (loading) return <div>Loading...</div>
   if (error || !data) return <div>Error: {error?.message}</div>
