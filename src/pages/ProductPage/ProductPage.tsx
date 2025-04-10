@@ -1,9 +1,9 @@
 import { useState, type FC } from 'react'
 import { useParams } from 'react-router-dom'
-import useProductQuery from '../hooks/useProductQuery'
-import Pagination from './Pagination'
-import { GetCategoryData } from '../hooks/productTypes'
-import ProductList from './ProductList'
+import useProductQuery from '../../hooks/useProductQuery'
+import Pagination from './components/Pagination'
+import { GetCategoryData } from '../../hooks/productTypes'
+import ProductList from './components/ProductList'
 
 type Variables = {
   after: string | undefined

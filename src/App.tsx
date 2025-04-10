@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import CategoryList from './components/CategoryList'
-import ProductPage from './components/ProductPage'
+import ProductPage from './pages/ProductPage'
 import type { FC } from 'react'
 
 const App: FC = () => {

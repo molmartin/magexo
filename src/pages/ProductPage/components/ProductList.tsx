@@ -1,6 +1,6 @@
 import { FC, memo } from 'react'
 import ProductCard from './ProductCard'
-import { Product } from '../hooks/productTypes'
+import { Product } from '../../../hooks/productTypes'
 
 const ProductList: FC<{ products: { node: Product }[]; className: string }> =
   memo(({ products, className }) => {

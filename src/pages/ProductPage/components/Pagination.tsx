@@ -1,6 +1,6 @@
 import type { FC } from 'react'
-import { PageInfo } from '../hooks/productTypes'
-import Button from './Button'
+import { PageInfo } from '../../../hooks/productTypes'
+import Button from '../../../components/Button'
 
 type Props = {
   pageInfo: PageInfo
