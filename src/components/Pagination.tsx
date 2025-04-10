@@ -1,28 +1,38 @@
 import type { FC } from 'react'
 import { PageInfo } from '../hooks/productTypes'
+import Button from './Button'
 
-type PaginationProps = {
+type Props = {
   pageInfo: PageInfo
+  className: string
   onNextPage: () => void
   onPreviousPage: () => void
 }
 
-const Pagination: FC<PaginationProps> = ({
+const Pagination: FC<Props> = ({
   pageInfo,
   onNextPage,
   onPreviousPage,
+  className,
 }) => {
   return (
-    <nav className="flex gap-2 mt-4">
-      <button disabled={!pageInfo.hasPreviousPage} onClick={onPreviousPage}>
-        Prev
-      </button>
-      <button disabled={!pageInfo.hasNextPage} onClick={onNextPage}>
-        Next
-      </button>
+    <nav className={`flex justify-center gap-4 mt-8 ${className}`}>
+      <Button
+        text="Prev"
+        onClick={onPreviousPage}
+        disabled={!pageInfo.hasPreviousPage}
+        className="bg-gray-200 hover:bg-gray-300"
+      />
+
+      <Button
+        text="Next"
+        onClick={onNextPage}
+        disabled={!pageInfo.hasNextPage}
+        className="bg-yellow-400 text-neutral-900 hover:bg-yellow-300"
+      />
     </nav>
   )
 }
 
 export default Pagination
-export type { PaginationProps }
+export type { Props as PaginationProps }

@@ -1,9 +1,9 @@
-import { memo, useState, type FC } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useState, type FC } from 'react'
+import { useParams } from 'react-router-dom'
 import useProductQuery from '../hooks/useProductQuery'
-import ProductCard from './ProductCard'
 import Pagination from './Pagination'
-import { GetCategoryData, Product } from '../hooks/productTypes'
+import { GetCategoryData } from '../hooks/productTypes'
+import ProductList from './ProductList'
 
 const PRODUCTS_PER_PAGE = 3
 
@@ -26,18 +26,6 @@ function updateQuery(
     },
   }
 }
-
-const ProductList: FC<{ products: { node: Product }[] }> = memo(
-  ({ products }) => {
-    return (
-      <div>
-        {products.map(({ node: product }: { node: Product }) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
-    )
-  },
-)
 
 const CategoryPage: FC = () => {
   const { categoryId } = useParams<{ categoryId: string }>()
@@ -86,15 +74,13 @@ const CategoryPage: FC = () => {
   }
 
   return (
-    <section>
-      <Link to={`/`}>Back</Link>
-      <h2>{data.collection.title}</h2>
-      <h3>Products</h3>
-      <ProductList products={products} />
+    <section className="max-w-5xl md:mx-auto px-4 py-8">
+      <ProductList products={products} className="mt-5" />
       <Pagination
         pageInfo={pageInfo}
         onNextPage={handleNextPage}
         onPreviousPage={handlePreviousPage}
+        className="float-right"
       />
     </section>
   )
