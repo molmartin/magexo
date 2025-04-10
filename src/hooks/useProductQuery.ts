@@ -1,45 +1,5 @@
 import { gql, useQuery } from '@apollo/client'
-
-type PriceV2 = {
-  amount: string
-  currencyCode: string
-}
-
-type Variant = {
-  id: string
-  title: string
-  priceV2: PriceV2
-}
-
-type Product = {
-  id: string
-  title: string
-  descriptionHtml: string
-  variants: {
-    edges: { node: Variant }[]
-  }
-}
-
-type PageInfo = {
-  hasPreviousPage: boolean
-  hasNextPage: boolean
-  startCursor: string | null
-  endCursor: string | null
-}
-
-type Collection = {
-  id: string
-  title: string
-  descriptionHtml: string
-  products: {
-    edges: { node: Product }[]
-    pageInfo: PageInfo
-  }
-}
-
-type GetCategoryData = {
-  collection: Collection
-}
+import { GetCategoryData } from './productTypes'
 
 function useProductQuery(
   categoryId: string | undefined,
@@ -68,7 +28,16 @@ function useProductQuery(
             node {
               id
               title
-              descriptionHtml
+              images(first: 5) {
+                edges {
+                  node {
+                    url
+                    altText
+                    width
+                    height
+                  }
+                }
+              }
               variants(first: 1) {
                 edges {
                   node {
@@ -106,4 +75,3 @@ function useProductQuery(
 }
 
 export default useProductQuery
-export type { GetCategoryData, Collection, Product, Variant, PriceV2, PageInfo }

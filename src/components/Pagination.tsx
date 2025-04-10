@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import { PageInfo } from '../hooks/useProductQuery'
+import { PageInfo } from '../hooks/productTypes'
 
 type PaginationProps = {
   pageInfo: PageInfo

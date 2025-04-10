@@ -1,35 +1,9 @@
 import type { FC } from 'react'
 import { Link } from 'react-router-dom'
-import { gql, useQuery } from '@apollo/client'
-
-const GET_CATEGORIES = gql`
-  query GetCategories {
-    collections(first: 10) {
-      edges {
-        node {
-          id
-          title
-        }
-      }
-    }
-  }
-`
-
-type Category = {
-  id: string
-  title: string
-}
-
-type GetCategoriesData = {
-  collections: {
-    edges: {
-      node: Category
-    }[]
-  }
-}
+import useCategoryQuery from '../hooks/useCategoryQuery'
 
 const CategoryList: FC = () => {
-  const { loading, error, data } = useQuery<GetCategoriesData>(GET_CATEGORIES)
+  const { loading, error, data } = useCategoryQuery()
 
   if (loading) return <div>Loading...</div>
   if (error) return <div>Error: {error.message}</div>

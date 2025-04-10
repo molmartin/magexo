@@ -6,9 +6,8 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<CategoryList />} /> {/* Seznam kategorií */}
-        <Route path="/category/:categoryId" element={<CategoryPage />} />{' '}
-        {/* Stránka kategorie */}
+        <Route path="/" element={<CategoryList />} />
+        <Route path="/category/:categoryId" element={<CategoryPage />} />
       </Routes>
     </Router>
   )
