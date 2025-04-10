@@ -20,35 +20,56 @@ type Product = {
   }
 }
 
+type PageInfo = {
+  hasPreviousPage: boolean
+  hasNextPage: boolean
+  startCursor: string | null
+  endCursor: string | null
+}
+
 type Collection = {
   id: string
   title: string
   descriptionHtml: string
   products: {
     edges: { node: Product }[]
+    pageInfo: PageInfo
   }
 }
 
 type GetCategoryData = {
   collection: Collection
 }
-// TODO ocistit od nepotrebnych
-function useProductQuery(categoryId: string | undefined) {
+
+function useProductQuery(
+  categoryId: string | undefined,
+  first?: number,
+  last?: number,
+  after?: string,
+  before?: string,
+) {
   if (!categoryId) {
     throw new Error('categoryId is required')
   }
+
   const GET_PRODUCTS_BY_CATEGORY = gql`
-    query GetProductsByCategory($categoryId: ID!, $first: Int!) {
+    query GetProductsByCategory(
+      $categoryId: ID!
+      $first: Int
+      $last: Int
+      $after: String
+      $before: String
+    ) {
       collection(id: $categoryId) {
         id
         title
-        products(first: $first) {
+        products(first: $first, last: $last, after: $after, before: $before) {
           edges {
             node {
               id
               title
               descriptionHtml
-              variants(first: $first) {
+              variants(first: 1) {
                 edges {
                   node {
                     id
@@ -62,6 +83,12 @@ function useProductQuery(categoryId: string | undefined) {
               }
             }
           }
+          pageInfo {
+            hasPreviousPage
+            hasNextPage
+            startCursor
+            endCursor
+          }
         }
       }
     }
@@ -69,15 +96,14 @@ function useProductQuery(categoryId: string | undefined) {
 
   const variables = {
     categoryId: `gid://shopify/Collection/${categoryId}`,
-    first: 5, // Default value, can be parameterized
+    first,
+    last,
+    after,
+    before,
   }
 
   return useQuery<GetCategoryData>(GET_PRODUCTS_BY_CATEGORY, { variables })
-
-  /* return useQuery<GetCategoryData>(GET_PRODUCTS_BY_CATEGORY, {
-    variables: { categoryId: `gid://shopify/Collection/${categoryId}` },
-  }) */
 }
 
 export default useProductQuery
-export type { GetCategoryData, Collection, Product, Variant, PriceV2 }
+export type { GetCategoryData, Collection, Product, Variant, PriceV2, PageInfo }
