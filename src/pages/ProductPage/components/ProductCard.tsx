@@ -1,5 +1,5 @@
 import { FC, memo } from 'react'
-import { Product } from '../hooks/productTypes'
+import { Product } from '../../../hooks/productTypes'
 
 const ProductImage: FC<{ product: Product }> = memo(({ product }) => {
   if (!product.images.edges.length) {
