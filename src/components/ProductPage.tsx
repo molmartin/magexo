@@ -5,8 +5,6 @@ import Pagination from './Pagination'
 import { GetCategoryData } from '../hooks/productTypes'
 import ProductList from './ProductList'
 
-const PRODUCTS_PER_PAGE = 3
-
 type Variables = {
   after: string | undefined
   first: number | undefined
@@ -31,6 +29,8 @@ const CategoryPage: FC = () => {
   const { categoryId } = useParams<{ categoryId: string }>()
   const [afterCursor, setAfterCursor] = useState<string | null>(null)
   const [beforeCursor, setBeforeCursor] = useState<string | null>(null)
+
+  const PRODUCTS_PER_PAGE = 3
 
   const { data, loading, error, fetchMore } = useProductQuery(
     categoryId,

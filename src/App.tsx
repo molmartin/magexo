@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import CategoryList from './components/CategoryList'
-import CategoryPage from './components/CategoryPage'
+import ProductPage from './components/ProductPage'
 import type { FC } from 'react'
 
 const App: FC = () => {
@@ -17,7 +17,7 @@ const App: FC = () => {
               </h1>
             }
           />
-          <Route path="/category/:categoryId" element={<CategoryPage />} />
+          <Route path="/category/:categoryId" element={<ProductPage />} />
         </Routes>
       </main>
     </Router>
