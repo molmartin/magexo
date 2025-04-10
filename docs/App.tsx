@@ -1,11 +1,11 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import CategoryList from './components/CategoryList'
-import ProductPage from './pages/ProductPage'
+import { Routes, Route, HashRouter } from 'react-router-dom'
+import CategoryList from '../src/components/CategoryList'
+import ProductPage from '../src/pages/ProductPage'
 import type { FC } from 'react'
 
 const App: FC = () => {
   return (
-    <Router>
+    <HashRouter>
       <main className="bg-neutral-900  min-h-screen flex flex-col">
         <CategoryList />
         <Routes>
@@ -20,7 +20,7 @@ const App: FC = () => {
           <Route path="/category/:categoryId" element={<ProductPage />} />
         </Routes>
       </main>
-    </Router>
+    </HashRouter>
   )
 }
 
