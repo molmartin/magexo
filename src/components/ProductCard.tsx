@@ -4,7 +4,7 @@ import { Product } from '../hooks/productTypes'
 const ProductCard: FC<{ product: Product }> = memo(({ product }) => {
   return (
     <div>
-      <h4>{product.title}</h4>
+      <h4 className="text-xl">{product.title}</h4>
       {!!product.images.edges.length && (
         <img
           loading="lazy"
