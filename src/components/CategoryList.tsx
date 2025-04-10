@@ -9,20 +9,18 @@ const CategoryList: FC = () => {
   if (error) return <div>Error: {error.message}</div>
 
   return (
-    <div>
-      <h3>Categories</h3>
-      <ul>
-        {data?.collections.edges.map((edge) => {
-          const { id, title } = edge.node
-          const shortId = id.split('/').pop()
-          return (
-            <li key={id}>
-              <Link to={`/category/${shortId}`}>{title}</Link>
-            </li>
-          )
-        })}
-      </ul>
-    </div>
+    <section className="flex gap-3 p-3">
+      <h3>MageXo</h3>
+      {data?.collections.edges.map((edge) => {
+        const { id, title } = edge.node
+        const shortId = id.split('/').pop()
+        return (
+          <div key={id}>
+            <Link to={`/category/${shortId}`}>{title}</Link>
+          </div>
+        )
+      })}
+    </section>
   )
 }
 
