@@ -4,13 +4,13 @@ import { Product } from '../../../hooks/productTypes'
 const ProductImage: FC<{ product: Product }> = memo(({ product }) => {
   if (!product.images.edges.length) {
     return (
-      <i className="border-t border-x border-neutral-800 rounded-sm- w-[200px] h-[200px] bg-neutral-900 mx-auto text-neutral-600 flex items-center justify-center">
+      <i className="aspect-square  w-full  ms:w-[200px] border-t border-x border-neutral-800 rounded-sm bg-neutral-900 mx-auto text-neutral-600 flex items-center justify-center">
         No image
       </i>
     )
   }
   return (
-    <div className="aspect-square w-full ms:w-[200px] mx-aut">
+    <div className="aspect-square w-full ms:w-[200px] mx-auto">
       <img
         loading="lazy"
         src={product.images.edges[0].node.url}
